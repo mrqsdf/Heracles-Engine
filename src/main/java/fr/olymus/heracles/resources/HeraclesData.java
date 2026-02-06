@@ -114,4 +114,31 @@ public class HeraclesData {
         return loadedStatistics;
     }
 
+    /**
+     * Destroys all statistics associated with a given Statable instance, removing them from the loaded statistics.
+     *
+     * @param statable The Statable instance for which to destroy all associated statistics.
+     * @throws IllegalArgumentException if statable is null.
+     */
+    public void destroyStatistics(Statable statable) {
+        loadedStatistics.remove(statable);
+    }
+
+    /**
+     * Destroys a specific statistic associated with a given Statable instance, identified by its unique identifier, removing it from the loaded statistics.
+     *
+     * @param statable    The Statable instance for which to destroy the specific statistic.
+     * @param statisticId The unique identifier of the statistic to destroy.
+     * @throws IllegalArgumentException if statable is null or if statisticId is null or blank.
+     */
+    public void destroyStatistic(Statable statable, String statisticId) {
+        List<Statistic> stats = loadedStatistics.get(statable);
+        if (stats != null) {
+            stats.removeIf(stat -> stat.registerId().equals(statisticId));
+            if (stats.isEmpty()) {
+                loadedStatistics.remove(statable);
+            }
+        }
+    }
+
 }
