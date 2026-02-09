@@ -2,7 +2,7 @@ package fr.olymus.heracles.register;
 
 import fr.olymus.heracles.Heracles;
 import fr.olymus.heracles.resources.HeraclesData;
-import fr.olymus.heracles.stats.Statistic;
+import fr.olymus.heracles.stats.IStatistic;
 import fr.olymus.heracles.stats.StatisticAnnotation;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
@@ -46,11 +46,11 @@ public final class AutoRegistrar {
 
                 for (ClassInfo ci : scan.getClassesWithAnnotation(StatisticAnnotation.class.getName())) {
                     Class<?> raw = ci.loadClass();
-                    if (!Statistic.class.isAssignableFrom(raw)) {
+                    if (!IStatistic.class.isAssignableFrom(raw)) {
                         throw new IllegalStateException("@StatisticAnnotation on non-Entity: " + raw.getName());
                     }
                     @SuppressWarnings("unchecked")
-                    Class<? extends Statistic> clazz = (Class<? extends Statistic>) raw;
+                    Class<? extends IStatistic> clazz = (Class<? extends IStatistic>) raw;
 
                     StatisticAnnotation ann = clazz.getAnnotation(StatisticAnnotation.class);
 

@@ -9,6 +9,10 @@ import java.util.UUID;
  */
 public interface Statable {
 
+    /**
+     * Returns the unique identifier (UUID) of the object.
+     * @return the UUID of the object
+     */
     UUID uuid();
 
 }
