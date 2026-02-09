@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * Interface representing a statistic that can be registered and tracked.
  */
-public interface Statistic {
+public interface IStatistic {
 
     /**
      * Gets the unique identifier for this statistic.
