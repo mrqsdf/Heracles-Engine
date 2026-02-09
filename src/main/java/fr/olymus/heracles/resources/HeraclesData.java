@@ -92,8 +92,25 @@ public class HeraclesData {
      * @param uuid The UUID of the Statable instance for which to retrieve the specific statistic.
      * @throws IllegalArgumentException if statable is null or if statisticId is null or blank.
      */
-    public List<IStatistic> getStatisticForStatable(UUID uuid) {
-        return loadedStatistics.getOrDefault(uuid, new ArrayList<>());
+    public IStatistic getStatisticForStatable(UUID uuid, String statisticId) {
+        return loadedStatistics.getOrDefault(uuid, new ArrayList<>()).stream()
+                .filter(stat -> stat.registerId().equals(statisticId))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
+     * Retrieves a specific statistic associated with a given Statable instance, identified by its unique identifier.
+     *
+     * @param statable    The Statable instance for which to retrieve the specific statistic.
+     * @param statisticId The unique identifier of the statistic to retrieve.
+     * @throws IllegalArgumentException if statable is null or if statisticId is null or blank.
+     */
+    public IStatistic getStatisticForStatable(Statable statable, String statisticId) {
+        return loadedStatistics.getOrDefault(statable.uuid(), new ArrayList<>()).stream()
+                .filter(stat -> stat.registerId().equals(statisticId))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
