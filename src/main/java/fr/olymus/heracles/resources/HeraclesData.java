@@ -24,7 +24,7 @@ public class HeraclesData {
     /**
      * Map of currently loaded statistics, where the key is the Statable instance and the value is a list of associated IStatistic instances.
      */
-    private Map<Statable, List<IStatistic>> loadedStatistics;
+    private Map<UUID, List<IStatistic>> loadedStatistics;
 
     /**
      * Constructs a HeraclesData instance with an empty statistics registry and an empty list of loaded statistics.
@@ -72,7 +72,7 @@ public class HeraclesData {
         }
         IStatistic IStatistic = entry.createInstance();
         IStatistic.registerMeta(statable.uuid(), id);
-        loadedStatistics.computeIfAbsent(statable, k -> new ArrayList<>()).add(IStatistic);
+        loadedStatistics.computeIfAbsent(statable.uuid(), k -> new ArrayList<>()).add(IStatistic);
     }
 
     /**
@@ -83,7 +83,17 @@ public class HeraclesData {
      * @throws IllegalArgumentException if statable is null.
      */
     public List<IStatistic> getStatisticsForStatable(Statable statable) {
-        return loadedStatistics.getOrDefault(statable, new ArrayList<>());
+        return loadedStatistics.getOrDefault(statable.uuid(), new ArrayList<>());
+    }
+
+    /**
+     * Retrieves a specific statistic associated with a given Statable instance, identified by its unique identifier.
+     *
+     * @param uuid The UUID of the Statable instance for which to retrieve the specific statistic.
+     * @throws IllegalArgumentException if statable is null or if statisticId is null or blank.
+     */
+    public List<IStatistic> getStatisticForStatable(UUID uuid) {
+        return loadedStatistics.getOrDefault(uuid, new ArrayList<>());
     }
 
     /**
@@ -96,8 +106,8 @@ public class HeraclesData {
      * @throws IllegalArgumentException if statableUuid is null.
      */
     public List<IStatistic> getStatisticsForStatable(UUID statableUuid) {
-        for (Map.Entry<Statable, List<IStatistic>> entry : loadedStatistics.entrySet()) {
-            if (entry.getKey().uuid().equals(statableUuid)) {
+        for (Map.Entry<UUID, List<IStatistic>> entry : loadedStatistics.entrySet()) {
+            if (entry.getKey().equals(statableUuid)) {
                 return entry.getValue();
             }
         }
@@ -110,7 +120,7 @@ public class HeraclesData {
      * @return A map where the key is a Statable instance and the value is a list of IStatistic instances associated with that Statable. If no statistics are loaded, an empty map is returned.
      * @throws IllegalStateException if loadedStatistics is null (should never happen as it's initialized in the constructor).
      */
-    public Map<Statable, List<IStatistic>> getLoadedStatistics() {
+    public Map<UUID, List<IStatistic>> getLoadedStatistics() {
         return loadedStatistics;
     }
 
@@ -121,7 +131,17 @@ public class HeraclesData {
      * @throws IllegalArgumentException if statable is null.
      */
     public void destroyStatistics(Statable statable) {
-        loadedStatistics.remove(statable);
+        loadedStatistics.remove(statable.uuid());
+    }
+
+    /**
+     * Destroys all statistics associated with a given Statable instance, identified by its unique identifier, removing them from the loaded statistics.
+     *
+     * @param statableUuid The UUID of the Statable instance for which to destroy all associated statistics.
+     * @throws IllegalArgumentException if statableUuid is null.
+     */
+    public void destroyStatistics(UUID statableUuid) {
+        loadedStatistics.remove(statableUuid);
     }
 
     /**
@@ -132,11 +152,28 @@ public class HeraclesData {
      * @throws IllegalArgumentException if statable is null or if statisticId is null or blank.
      */
     public void destroyStatistic(Statable statable, String statisticId) {
-        List<IStatistic> stats = loadedStatistics.get(statable);
+        List<IStatistic> stats = loadedStatistics.get(statable.uuid());
         if (stats != null) {
             stats.removeIf(stat -> stat.registerId().equals(statisticId));
             if (stats.isEmpty()) {
-                loadedStatistics.remove(statable);
+                loadedStatistics.remove(statable.uuid());
+            }
+        }
+    }
+
+    /**
+     * Destroys a specific statistic associated with a given Statable instance, identified by its unique identifier, removing it from the loaded statistics.
+     *
+     * @param statableUuid The UUID of the Statable instance for which to destroy the specific statistic.
+     * @param statisticId  The unique identifier of the statistic to destroy.
+     * @throws IllegalArgumentException if statableUuid is null or if statisticId is null or blank.
+     */
+    public void destroyStatistic(UUID statableUuid, String statisticId) {
+        List<IStatistic> stats = loadedStatistics.get(statableUuid);
+        if (stats != null) {
+            stats.removeIf(stat -> stat.registerId().equals(statisticId));
+            if (stats.isEmpty()) {
+                loadedStatistics.remove(statableUuid);
             }
         }
     }

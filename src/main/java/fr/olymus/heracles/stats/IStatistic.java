@@ -13,11 +13,6 @@ public interface IStatistic {
      */
     String registerId();
 
-    /**
-     * Gets the value of this statistic.
-     * @return An object representing the value of this statistic.
-     */
-    Object value();
 
     /**
      * Gets the UUID associated with this statistic.
@@ -32,5 +27,13 @@ public interface IStatistic {
      * @param registerId A string representing the unique identifier for this statistic.
      */
     void registerMeta(UUID uuid, String registerId);
+
+    /**
+     * Retrieves the value of this statistic based on the provided class type.
+     * @param clazz A Class object representing the type of statistic to retrieve.
+     * @return An instance of the specified statistic type containing the value of this statistic.
+     * @param <T> The type of statistic to retrieve, which must extend IStatistic.
+     */
+    <T extends IStatistic> T getValue(Class<T> clazz);
 
 }
