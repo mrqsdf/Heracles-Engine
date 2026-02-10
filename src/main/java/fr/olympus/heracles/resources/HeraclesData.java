@@ -1,8 +1,8 @@
-package fr.olymus.heracles.resources;
+package fr.olympus.heracles.resources;
 
-import fr.olymus.heracles.register.StatisticRegistryEntry;
-import fr.olymus.heracles.stats.Statable;
-import fr.olymus.heracles.stats.IStatistic;
+import fr.olympus.heracles.register.StatisticRegistryEntry;
+import fr.olympus.heracles.stats.Statable;
+import fr.olympus.heracles.stats.IStatistic;
 
 import java.util.ArrayList;
 import java.util.List;

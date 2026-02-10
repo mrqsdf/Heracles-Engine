@@ -1,8 +1,8 @@
-package fr.olymus.heracles;
+package fr.olympus.heracles;
 
-import fr.olymus.heracles.register.AutoRegistrar;
-import fr.olymus.heracles.register.RegisterType;
-import fr.olymus.heracles.resources.HeraclesData;
+import fr.olympus.heracles.register.AutoRegistrar;
+import fr.olympus.heracles.register.RegisterType;
+import fr.olympus.heracles.resources.HeraclesData;
 
 import java.util.concurrent.atomic.AtomicReference;
 

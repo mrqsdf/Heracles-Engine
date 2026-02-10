@@ -1,4 +1,4 @@
-package fr.olymus.heracles.stats;
+package fr.olympus.heracles.stats;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
