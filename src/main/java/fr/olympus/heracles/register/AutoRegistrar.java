@@ -1,9 +1,9 @@
-package fr.olymus.heracles.register;
+package fr.olympus.heracles.register;
 
-import fr.olymus.heracles.Heracles;
-import fr.olymus.heracles.resources.HeraclesData;
-import fr.olymus.heracles.stats.IStatistic;
-import fr.olymus.heracles.stats.StatisticAnnotation;
+import fr.olympus.heracles.Heracles;
+import fr.olympus.heracles.resources.HeraclesData;
+import fr.olympus.heracles.stats.IStatistic;
+import fr.olympus.heracles.stats.StatisticAnnotation;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.ScanResult;

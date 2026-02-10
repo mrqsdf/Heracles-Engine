@@ -1,4 +1,4 @@
-package fr.olymus.heracles.register;
+package fr.olympus.heracles.register;
 
 /**
  * Types of registrations available.

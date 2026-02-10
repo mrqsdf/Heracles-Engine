@@ -1,7 +1,7 @@
-package fr.olymus.heracles.register;
+package fr.olympus.heracles.register;
 
 
-import fr.olymus.heracles.stats.IStatistic;
+import fr.olympus.heracles.stats.IStatistic;
 
 import java.util.function.Supplier;
 
